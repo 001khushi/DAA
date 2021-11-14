@@ -1,76 +1,7 @@
-/*#include<iostream>
-using namespace std;
-int count=0;
-int merge(int arr[],int l,int mid,int r){
-    int inv=0;
-    int n1=mid-l+1;
-    int n2=r-mid;
-    int a[mid-l+1];
-    int b[r-mid];
-    for(int i=0;i<n1;i++)
-    {
-        arr[i]=arr[l+i];
-    }
-     for(int i=0;i<n2;i++)
-    {
-        b[i]=arr[mid+i+1];
-    }
-    int i=0,j=0,k=1;
-    while(i<n1 || j<n2){
-        if(a[i]<=b[j]){
-            arr[k]=a[i];
-            k++;i++;
-        }
-        else{
-            arr[k]=b[j];
-            inv +=n1-i;
-            k++;j++;
-        }
-    }
-    while(i<n1){
-        arr[k]=a[i];
-        k++;i++;
-    }
-    while(j<n2){
-            arr[k]=b[j];
-            k++;j++;
-       
-    }        
- return inv; 
-    
-}
-
-int merge_sort(int arr[],int l,int r)
-{
-    
-    if(l<r){
-        int mid = (l+r)/2;
-       merge_sort(arr,l,mid);
-       merge_sort(arr,mid,r);
-       merge(arr,l,mid,r);
-    }
-    return inv;
-}
-int main()
-{
-    int t;
-    cin >>t;
-    while(t--)
-    {
-        int n;
-        cin>>n;
-        int arr[50];
-        for(int i;i<n;i++)
-        {
-            cin>>arr[i];
-        }
-        cout<<" "<<merge_sort(arr,0,n-1);
-        return 0;
-    }
-}*/
 #include<iostream>
 using namespace std;
 int count = 0;
+int swaps = 0;
 int n = 0;
 const int MAX_ITEMS = 100;
 void merge(int values[], int leftFirst, int leftLast, int rightFirst, int rightLast);
@@ -93,11 +24,13 @@ void merge(int values[], int leftFirst, int leftLast, int rightFirst, int rightL
             if(values[leftFirst] < values[rightFirst]){
                 temparray[index]  = values[leftFirst]; 
                 leftFirst++;
+                swaps++;
             }
             else
             {
                 temparray[index]  = values[rightFirst];
                 rightFirst++;
+                swaps++;
             }
             index++;
             count++; 
@@ -108,17 +41,20 @@ void merge(int values[], int leftFirst, int leftLast, int rightFirst, int rightL
             temparray[index] = values[leftFirst];
             leftFirst++;
             index++;
+            swaps++;
            
         }
         while(rightFirst <= rightLast){
             temparray[index] = values[rightFirst];
             rightFirst++;
             index++;
+            swaps++;
            
         }
        
         for(index = saveFirst; index <= rightLast; index++)
             values[index] = temparray[index];
+            swaps++;
         printarray(values,n);
         cout << endl;
 
@@ -149,4 +85,5 @@ int main(){
     printarray(a, n);
     cout << endl;
     cout  << "Number of comparisons : "<< count << endl;
+    cout<<"Number of swaps : "<<swaps;
 }
